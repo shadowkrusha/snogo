@@ -47,7 +47,7 @@ func StartServer() {
 	mux.HandleFunc("/", postHandler)
 	mux.Handle("/metrics", promhttp.Handler())
 	log.Printf("listening on port %s", *flagPort)
-	log.Fatal(http.ListenAndServe("localhost:"+*flagPort, mux))
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+*flagPort, mux))
 }
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
