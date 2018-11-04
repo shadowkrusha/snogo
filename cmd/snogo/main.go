@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/HealthPartnersOSS/snogo"
+	"github.com/shadowkrusha/snogo"
 )
 
 func main() {
