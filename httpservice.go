@@ -87,6 +87,8 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 					if err != nil {
 						// Do a thing
 					}
+					fmt.Printf("Incident Posted")
+					fmr.Printf("%v", _)
 				}
 			} else {
 				fmt.Printf("No assignment group for incident %s, not created\n", incident.Description)
