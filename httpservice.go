@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
@@ -32,6 +33,7 @@ type prometheusAlertPayload struct {
 		Status string `json:"status"`
 		Labels struct {
 			SnowGroup        string `json:"snow_group"`
+			CmdbCI           string `json:"cmdb_ci"`
 			OpenShiftCluster string `json:"openshift_cluster"`
 		} `json:"labels"`
 		Annotations struct {
@@ -114,13 +116,19 @@ func transform(payload *prometheusAlertPayload) ([]IncidentCreationPayload, erro
 	for _, alert := range payload.Alerts {
 		incident := IncidentCreationPayload{
 			AssignmentGroup:  strings.Replace(alert.Labels.SnowGroup, "-", " ", -1),
-			ContactType:      "Auto Ticket",
-			Customer:         "sn_web_api",
+			CmdbCI:           alert.Labels.CmdbCI,
+			ServiceCI:        "Server Admin",
+			ContactType:      "Event",
+			Customer:         "Monitoring",
 			Description:      alert.Annotations.Description,
 			Impact:           "4",
 			ShortDescription: alert.Annotations.ShortDescription,
 			State:            json.Number("60"),
 			Urgency:          "3",
+			AltContactInfo:   "Prometheus Alerting",
+			Category:         "Availability",
+			SubCategory:      "Completely Unavailable",
+			OutageStart:      time.Now(),
 		}
 		incidentList = append(incidentList, incident)
 	}

@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 )
 
 //DefaultServiceNowClient get the client from the environment vars
@@ -29,6 +30,11 @@ type IncidentCreationPayload struct {
 	ShortDescription string      `json:"short_description"`
 	State            json.Number `json:"state"`
 	Urgency          json.Number `json:"urgency"`
+	AltContactInfo   string      `json:"u_phone_contact"`
+	ServiceCI        string      `json:"u_service"`
+	Category         string      `json:"category"`
+	SubCategory      string      `json:"subcategory"`
+	OutageStart      time.Time   `json:"u_outage_start"`
 }
 
 //ServiceNowInstance should hold the necessary data for a client of the ServiceNow TableAPI
