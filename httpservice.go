@@ -128,7 +128,7 @@ func transform(payload *prometheusAlertPayload) ([]IncidentCreationPayload, erro
 			AltContactInfo:   "Prometheus Alerting",
 			Category:         "Availability",
 			SubCategory:      "Completely Unavailable",
-			OutageStart:      time.Now(),
+			OutageStart:      time.Now().Format("2006-01-02 15:04:05"),
 		}
 		incidentList = append(incidentList, incident)
 	}
